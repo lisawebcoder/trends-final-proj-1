@@ -1,0 +1,17 @@
+{
+  "name": "erp",
+  "version": "1.0.0",
+  "description": "- check if DOcker is installed in your system , if not go to https://www.docker.com - to run the project open the terminal and type  [ docker-compose up -d ] (without brakets) - the API will started in http://localhost:3000 - the APP will start in http://localhost",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -x 'node index.js || (sleep 10; touch index.js)'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.1.0",
+    "nodemon": "^2.0.22"
+  }
+}

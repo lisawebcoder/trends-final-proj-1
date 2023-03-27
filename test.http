@@ -1,0 +1,53 @@
+@baseUrl = http://localhost:3000/api/marketing
+
+###
+# @name getAllCampaigns
+GET {{baseUrl}}/campaign/getAll HTTP/1.1
+
+###
+# @name createNewCampaign
+POST {{baseUrl}}/campaign/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "EstimatedBudget": 1000,
+  "Start": "2023-04-01T00:00:00Z",
+  "End": "2023-04-30T00:00:00Z"
+}
+
+###
+@newCampaignID = {{createNewCampaign.response.body.insertedId}}
+
+
+###
+# @name getcampaignByID
+GET {{baseUrl}}/campaign/get/{{newCampaignID}} HTTP/1.1
+
+### Lead Endpoints ###
+
+###
+# @name getAllLeads
+GET {{baseUrl}}/lead/getAll HTTP/1.1
+
+###
+# @name createNewLead
+POST {{baseUrl}}/lead/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "CampaignId": "{{newCampaignID}}",
+  "Name": "John Doe",
+  "Phone": "123-456-7890",
+  "Comment": "Interested in the product"
+}
+
+###
+@newLeadID = {{createNewLead.response.body.insertedId}}
+
+###
+# @name getLeadByID
+GET {{baseUrl}}/lead/get/{{newLeadID}} HTTP/1.1
+
+###
+# @name getLeadsByCampaignID
+GET {{baseUrl}}/lead/campaign/{{newCampaignID}} HTTP/1.1

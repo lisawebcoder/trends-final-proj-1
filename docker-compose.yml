@@ -1,0 +1,31 @@
+version: "2"
+services:
+    api:
+        image: node
+        ports: 
+            - "3000:3000"
+        volumes:
+            - ./:/usr/api
+        depends_on:
+            - db
+        working_dir: /usr/api
+        environment:
+            - PORT=3000
+            - MONGO_URI=mongodb://admin:password@db:27017
+            - MONGO_DB_NAME=Marketing
+        command: bash -c "npm install && npm start"
+        networks:
+            - default
+    db:
+        image: mongo
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=admin
+            - MONGO_INITDB_ROOT_PASSWORD=password
+            - MONGO_INITDB_ROOT_DATABASE=Marketing
+        ports:
+            - "27017:27017"
+        networks:
+            - default
+volumes:
+    persistent:
